@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.offcn.ssm.mapper.UserMapper">
+
+	<!-- void addUser(User user); -->
+	<insert id="addUser" parameterType="com.offcn.ssm.pojo.User">
+		insert into user(uid,username,password,name,email,sex,birthday) 
+		values(#{uid},#{username},#{password},#{name},#{email},#{sex},#{birthday});
+	</insert>
+	
+	<!-- int findUserByUsernameAndPassword(User user); -->
+	<select id="findUserByUsernameAndPassword"  parameterType="com.offcn.ssm.pojo.User"
+		resultType="int"
+	>
+		select count(*) from user where username = #{username} and password = #{password};
+	
+	</select>
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

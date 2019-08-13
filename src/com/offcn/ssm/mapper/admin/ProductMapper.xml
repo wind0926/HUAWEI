@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.offcn.ssm.mapper.admin.ProductMapper">
+
+	<!-- void addProduct(Product p); -->
+	<insert id="addProduct"
+		parameterType="com.offcn.ssm.pojo.Product">
+
+		insert into
+		product(pid,pname,pimage,pdate,pdesc,shop_price,market_price,is_hot,pflag,cid)
+		values(#{pid},#{pname},#{pimage},#{pdate},#{pdesc},#{shop_price},#{market_price},#{is_hot},#{pflag},#{category.cid})
+
+	</insert>
+	<!-- List<Product> queryAllProduct(int i, Integer pageSize); -->
+	<select id="queryAllProduct" parameterType="int"
+		resultType="com.offcn.ssm.pojo.Product">
+		select * from product;
+
+	</select>
+
+	<!-- 定义一个通用的查询字段 -->
+	<sql id="Base_Column_List">
+		pid,pname,pimage,pdate,pdesc,shop_price,market_price,is_hot,pflag,cid
+	</sql>
+
+	<!--List<Product> findByPage(Map<String, Object> map); -->
+	<select id="findByPage" parameterType="Map"
+		resultType="com.offcn.ssm.pojo.Product">
+		select
+		<include refid="Base_Column_List" />
+		from product
+		limit #{start},#{size}
+	</select>
+
+	<!-- int selectCount(); -->
+	<select id="selectCount" resultType="int">
+		select count(*) from
+		product;
+	</select>
+
+	<!-- List<Product> findHotProduct(); -->
+
+	<select id="findHotProduct"
+		resultType="com.offcn.ssm.pojo.Product">
+		select
+		<include refid="Base_Column_List" />
+		from product
+		where is_hot = 1 limit 0,9;
+	</select>
+
+	<!-- Product findProductByPid(String pid); -->
+	<select id="findProductByPid"
+		resultType="com.offcn.ssm.pojo.Product" parameterType="String">
+		select
+		<include refid="Base_Column_List" />
+		from product
+		where pid = #{value};
+	</select>
+
+	<!-- int countProductByCategory(String cid);; -->
+	<select id="countProductByCategory" resultType="int"
+		parameterType="String">
+		select count(*) from product where cid = #{value};
+	</select>
+
+	<!-- List<Product> listProductByCategory(Map<String, Object> map); -->
+	<select id="listProductByCategory" parameterType="Map"
+		resultType="com.offcn.ssm.pojo.Product">
+		select
+		<include refid="Base_Column_List" />
+		from product
+		where cid = #{cid}
+		limit #{start},#{size}
+	</select>
+
+	<!-- void updateCategory(Category c); -->
+	<update id="updateProduct"
+		parameterType="com.offcn.ssm.pojo.Product">
+		update product set pname = #{pname},cid=#{cid},pimage=#{pimage}
+		,pdesc=#{pdesc},shop_price=#{shop_price},market_price=#{market_price},is_hot=#{is_hot}
+		where pid = #{pid}
+	</update>
+
+	<!-- void deleteProductByPid(String pid); -->
+	<delete id="deleteProductByPid" parameterType="String">
+		delete from product where pid=#{pid}
+	</delete>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

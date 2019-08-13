@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context" xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"> <!-- bean definitions here -->
+
+	<!-- 加载配置文件 
+	<context:property-placeholder location = "classpath:db.properties"/>
+	-->
+	
+	<!--  数据库连接池 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<!-- 匹配属性 -->
+		<property name="driverClassName"  value = "com.mysql.jdbc.Driver"></property>
+		<property name="url"  value = "jdbc:mysql://localhost:3306/store?characterEncoding=utf-8"></property>
+		<property name="username" value= "root"></property>
+		<property name="password" value= "root"></property>
+		
+	</bean>
+	
+	<!-- 配置sqlSessionFactory -->
+	<bean id = "sqlSessionFactory" class = "org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- 数据库连接池 -->
+		<property name="dataSource" ref="dataSource"></property>
+		<!--  MyBatis全局配置文件 -->
+		<property name="configLocation" value = "classpath:mybatis/SqlMapConfig.xml"></property>
+	</bean>
+	
+	<!-- 扫描Mapper -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<!-- 扫描mapper 包 -->
+		<property name="basePackage" value="com.offcn.ssm.mapper"></property>
+	</bean>
+
+</beans>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.offcn.ssm.mapper.admin.CategoryMapper">
+
+	<!-- void addCategory(Category c); -->
+	<insert id="addCategory" parameterType="com.offcn.ssm.pojo.Category">
+		insert into category values(#{cid},#{cname});
+	</insert>
+	
+	<!-- List<Category> listCategory(); -->
+	<select id="listCategory" resultType="com.offcn.ssm.pojo.Category">
+		select * from category
+	</select>
+	
+	<!-- Category queryCategoryByCid(int cid); -->
+	<select id="queryCategoryByCid" parameterType="string"
+	resultType="com.offcn.ssm.pojo.Category">
+		select * from category where cid = #{value}
+	</select>
+	
+	
+	<!-- void updateCategory(Category c); -->
+	<update id="updateCategory" parameterType="com.offcn.ssm.pojo.Category">
+		update category set cname = #{cname} where cid = #{cid}
+	</update>
+	
+	<!-- void delCategory(String cid) -->
+	<delete id="delCategory" parameterType="string">
+		delete from category where cid=#{cid}
+	</delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
